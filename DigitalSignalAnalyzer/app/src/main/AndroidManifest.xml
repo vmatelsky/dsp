@@ -19,6 +19,7 @@
 
         <activity
             android:name=".SignalActivity_"
+            android:screenOrientation="landscape"
             android:label="@string/app_name" >
         </activity>
     </application>

@@ -65,4 +65,55 @@ public class Signal implements Serializable {
         return _signature;
     }
 
+    public int getChannelsNumber() {
+        return _channelsNumber;
+    }
+
+    public int getSignalChannelsSelectionSize() {
+        return _signalChannelsSelectionSize;
+    }
+
+    public int getSpectralLinesCount() {
+        return _spectralLinesCount;
+    }
+
+    public int getCutoffFrequency() {
+        return _cutoffFrequency;
+    }
+
+    public float getFrequencyResolution() {
+        return _frequencyResolution;
+    }
+
+    public float getBlockDataCaptureTime() {
+        return _blockDataCaptureTime;
+    }
+
+    public int getTotalCaptureTime() {
+        return _totalCaptureTime;
+    }
+
+    public int getCapturedBlocksCount_userSpecified() {
+        return _capturedBlocksCount_userSpecified;
+    }
+
+    public int getDataSize() {
+        return _dataSize;
+    }
+
+    public int getCapturedBlocksCount_systemSpecified() {
+        return _capturedBlocksCount_systemSpecified;
+    }
+
+    public float getMaxSignalValue() {
+        return _maxSignalValue;
+    }
+
+    public float getMinSignalVale() {
+        return _minSignalVale;
+    }
+
+    public float[] getData() {
+        return  _data;
+    }
 }
