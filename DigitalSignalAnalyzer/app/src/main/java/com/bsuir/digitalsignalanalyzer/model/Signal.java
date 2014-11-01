@@ -2,6 +2,8 @@ package com.bsuir.digitalsignalanalyzer.model;
 
 import android.content.res.AssetManager;
 
+import com.bsuir.digitalsignalanalyzer.utils.LittleEndianUtils;
+
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -19,22 +21,22 @@ public class Signal implements Serializable {
 
         Signal signal = new Signal();
         signal._signature = new String(signature, "US-ASCII");
-        signal._channelsNumber = dis.readInt();
-        signal._signalChannelsSelectionSize = dis.readInt();
-        signal._spectralLinesCount = dis.readInt();
-        signal._cutoffFrequency = dis.readInt();
-        signal._frequencyResolution = dis.readFloat();
-        signal._blockDataCaptureTime = dis.readFloat();
-        signal._totalCaptureTime = dis.readInt();
+        signal._channelsNumber = LittleEndianUtils.readInt(dis);
+        signal._signalChannelsSelectionSize = LittleEndianUtils.readInt(dis);
+        signal._spectralLinesCount = LittleEndianUtils.readInt(dis);
+        signal._cutoffFrequency = LittleEndianUtils.readInt(dis);
+        signal._frequencyResolution = LittleEndianUtils.readFloat(dis);
+        signal._blockDataCaptureTime = LittleEndianUtils.readFloat(dis);
+        signal._totalCaptureTime = LittleEndianUtils.readInt(dis);
         signal._capturedBlocksCount_userSpecified = dis.readInt();
-        signal._dataSize = dis.readInt();
+        signal._dataSize = LittleEndianUtils.readInt(dis);
         signal._capturedBlocksCount_systemSpecified = dis.readInt();
-        signal._maxSignalValue = dis.readFloat();
-        signal._minSignalVale = dis.readFloat();
+        signal._maxSignalValue = LittleEndianUtils.readFloat(dis);
+        signal._minSignalVale = LittleEndianUtils.readFloat(dis);
 
-        signal._data = new float[8192];
-        for (int i = 0; i < 8192; ++i) {
-            signal._data[i] = dis.readFloat();
+        signal._data = new float[signal._dataSize];
+        for (int i = 0; i < signal._dataSize; ++i) {
+            signal._data[i] = LittleEndianUtils.readFloat(dis);
         }
 
         return signal;
