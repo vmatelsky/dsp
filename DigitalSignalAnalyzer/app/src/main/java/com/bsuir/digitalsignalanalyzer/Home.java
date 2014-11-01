@@ -1,6 +1,7 @@
 package com.bsuir.digitalsignalanalyzer;
 
 import android.app.Activity;
+import android.os.Environment;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -10,6 +11,7 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.ViewById;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -37,7 +39,7 @@ public class Home extends Activity {
     }
 
     @ItemClick(R.id.signals_list)
-    void listItemClicked(String food) {
-        Toast.makeText(this, "click: " + food, Toast.LENGTH_SHORT).show();
+    void listItemClicked(String signalPath) {
+        SignalActivity_.intent(this)._signalPath("Prim_Sign" + File.separator + signalPath).start();
     }
 }
