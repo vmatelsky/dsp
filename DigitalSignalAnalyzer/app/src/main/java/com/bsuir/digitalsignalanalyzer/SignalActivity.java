@@ -64,12 +64,14 @@ public class SignalActivity extends Activity {
 
         graphView.getGraphViewStyle().setGridColor(Color.GRAY);
 
+        graphView.setViewPort(0, 1000);
+
         GraphView.GraphViewData[] data = new GraphView.GraphViewData[_signal.getDataSize()];
 
         int valueX = 0;
         for (int i = 0; i < _signal.getDataSize(); ++i) {
             GraphView.GraphViewData dataItem = new GraphView.GraphViewData(valueX, _signal.getData()[i]);
-            valueX += _signal.getCutoffFrequency();
+            valueX += _signal.getFrequencyResolution();
             data[i] = dataItem;
         }
 
