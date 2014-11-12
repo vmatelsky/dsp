@@ -34,7 +34,7 @@ public class Signal implements Serializable {
         signal._maxSignalValue = LittleEndianUtils.readFloat(dis);
         signal._minSignalVale = LittleEndianUtils.readFloat(dis);
 
-        signal._data = new float[signal._dataSize];
+        signal._data = new double[signal._dataSize];
         for (int i = 0; i < signal._dataSize; ++i) {
             signal._data[i] = LittleEndianUtils.readFloat(dis);
         }
@@ -56,7 +56,7 @@ public class Signal implements Serializable {
     private float _maxSignalValue;
     private float _minSignalVale;
 
-    private float[] _data;
+    private double[] _data;
 
     private Signal() {
     }
@@ -113,7 +113,7 @@ public class Signal implements Serializable {
         return _minSignalVale;
     }
 
-    public float[] getData() {
+    public double[] getData() {
         return  _data;
     }
 }

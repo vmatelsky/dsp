@@ -3,59 +3,29 @@ package com.bsuir.digitalsignalanalyzer;
 import android.app.Activity;
 import android.graphics.Color;
 import android.widget.FrameLayout;
-import android.widget.GridLayout;
-import android.widget.Toast;
 
 import com.bsuir.digitalsignalanalyzer.model.Signal;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GraphViewSeries;
 import com.jjoe64.graphview.LineGraphView;
 
-import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
-import org.androidannotations.annotations.OptionsItem;
-import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
 
-import java.io.File;
-import java.io.IOException;
+import edu.emory.mathcs.jtransforms.fft.DoubleFFT_1D;
 
-@EActivity(R.layout.activity_signal)
-@OptionsMenu(R.menu.signal_activity_menu)
-public class SignalActivity extends Activity {
+@EActivity(R.layout.activity_spectrum)
+public class SpectrumActivity extends Activity {
 
-    @Extra("signal path")
-    String _signalPath;
-
+    @Extra("signal")
     Signal _signal;
 
     @ViewById(R.id.chart_place)
     FrameLayout _chartPlace;
 
     private LineGraphView graphView;
-
-    @AfterInject
-    public void parseSignal() {
-        try {
-            _signal = Signal.fromAssets(getAssets(), _signalPath);
-        } catch (IOException e) {
-            Toast.makeText(this, "Error parsing signal", Toast.LENGTH_LONG).show();
-            finish();
-            e.printStackTrace();
-        }
-    }
-
-    @AfterViews
-    public void setActivityTitle() {
-        setTitle(_signalPath);
-    }
-
-    @OptionsItem(R.id.calculate_spectrum)
-    public void calculateSpectrum() {
-        SpectrumActivity_.intent(this)._signal(_signal).start();
-    }
 
     @AfterViews
     public void drawSignal() {
@@ -68,11 +38,16 @@ public class SignalActivity extends Activity {
 
         graphView.setViewPort(0, 1000);
 
-        GraphView.GraphViewData[] data = new GraphView.GraphViewData[_signal.getDataSize()];
+        DoubleFFT_1D fftDo = new DoubleFFT_1D(_signal.getData().length);
+        double[] fft = new double[_signal.getData().length * 2];
+        System.arraycopy(_signal.getData(), 0, fft, 0, _signal.getData().length);
+        fftDo.realForwardFull(fft);
 
+        GraphView.GraphViewData[] data = new GraphView.GraphViewData[fft.length];
         int valueX = 0;
-        for (int i = 0; i < _signal.getDataSize(); ++i) {
-            GraphView.GraphViewData dataItem = new GraphView.GraphViewData(valueX, _signal.getData()[i]);
+
+        for (int i = 0; i < fft.length; ++i) {
+            GraphView.GraphViewData dataItem = new GraphView.GraphViewData(valueX, fft[i]);
             valueX += _signal.getFrequencyResolution();
             data[i] = dataItem;
         }
@@ -83,5 +58,4 @@ public class SignalActivity extends Activity {
         _chartPlace.removeAllViews();
         _chartPlace.addView(graphView);
     }
-
 }
