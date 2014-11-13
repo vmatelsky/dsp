@@ -14,7 +14,7 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
 
-import edu.emory.mathcs.jtransforms.fft.DoubleFFT_1D;
+import edu.emory.mathcs.jtransforms.fft.FloatFFT_1D;
 
 @EActivity(R.layout.activity_spectrum)
 public class SpectrumActivity extends Activity {
@@ -38,8 +38,9 @@ public class SpectrumActivity extends Activity {
 
         graphView.setViewPort(0, 1000);
 
-        DoubleFFT_1D fftDo = new DoubleFFT_1D(_signal.getData().length);
-        double[] fft = new double[_signal.getData().length * 2];
+        FloatFFT_1D fftDo = new FloatFFT_1D(_signal.getData().length);
+
+        float[] fft = new float[_signal.getData().length * 2];
         System.arraycopy(_signal.getData(), 0, fft, 0, _signal.getData().length);
         fftDo.realForwardFull(fft);
 
