@@ -116,4 +116,8 @@ public class Signal implements Serializable {
     public float[] getData() {
         return  _data;
     }
+
+    public float discretizationTime() {
+        return getBlockDataCaptureTime() / (float) getChannelsNumber();
+    }
 }

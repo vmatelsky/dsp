@@ -70,10 +70,11 @@ public class SignalActivity extends Activity {
 
         GraphView.GraphViewData[] data = new GraphView.GraphViewData[_signal.getDataSize()];
 
-        int valueX = 0;
+        float discretizationTime = _signal.discretizationTime();
+        float valueX = 0;
         for (int i = 0; i < _signal.getDataSize(); ++i) {
             GraphView.GraphViewData dataItem = new GraphView.GraphViewData(valueX, _signal.getData()[i]);
-            valueX += _signal.getFrequencyResolution();
+            valueX += discretizationTime;
             data[i] = dataItem;
         }
 
