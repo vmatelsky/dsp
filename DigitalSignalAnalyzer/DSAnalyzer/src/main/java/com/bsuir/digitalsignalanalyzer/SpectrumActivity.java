@@ -36,8 +36,6 @@ public class SpectrumActivity extends Activity {
 
         graphView.getGraphViewStyle().setGridColor(Color.GRAY);
 
-
-
         FloatFFT_1D fftDo = new FloatFFT_1D(_signal.getData().length);
 
         float[] fft = new float[_signal.getData().length * 2];
@@ -45,9 +43,7 @@ public class SpectrumActivity extends Activity {
         fftDo.realForwardFull(fft);
 
         GraphView.GraphViewData[] data = new GraphView.GraphViewData[fft.length];
-        float discretizationTime = _signal.discretizationTime();
-        float Ts = discretizationTime * _signal.getChannelsNumber();
-        float deltaF = 1 / Ts;
+        float deltaF = (float)_signal.getSpectralLinesCount() / (float)_signal.getDataSize();
         float valueX = 0;
 
         for (int i = 0; i < fft.length; ++i) {
