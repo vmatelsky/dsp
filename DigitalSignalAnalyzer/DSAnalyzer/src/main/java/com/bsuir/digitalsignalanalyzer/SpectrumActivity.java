@@ -36,7 +36,7 @@ public class SpectrumActivity extends Activity {
 
         graphView.getGraphViewStyle().setGridColor(Color.GRAY);
 
-        graphView.setViewPort(0, 1000);
+
 
         FloatFFT_1D fftDo = new FloatFFT_1D(_signal.getData().length);
 
@@ -45,13 +45,18 @@ public class SpectrumActivity extends Activity {
         fftDo.realForwardFull(fft);
 
         GraphView.GraphViewData[] data = new GraphView.GraphViewData[fft.length];
-        int valueX = 0;
+        float discretizationTime = _signal.discretizationTime();
+        float Ts = discretizationTime * _signal.getChannelsNumber();
+        float deltaF = 1 / Ts;
+        float valueX = 0;
 
         for (int i = 0; i < fft.length; ++i) {
             GraphView.GraphViewData dataItem = new GraphView.GraphViewData(valueX, fft[i]);
-            valueX += _signal.getFrequencyResolution();
+            valueX += deltaF;
             data[i] = dataItem;
         }
+
+        graphView.setViewPort(0, 500);
 
         GraphViewSeries signalSeries = new GraphViewSeries(data);
         graphView.addSeries(signalSeries);
