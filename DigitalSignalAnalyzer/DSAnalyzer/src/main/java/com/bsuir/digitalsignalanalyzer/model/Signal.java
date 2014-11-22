@@ -6,6 +6,7 @@ import com.bsuir.digitalsignalanalyzer.utils.LittleEndianUtils;
 
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
@@ -14,6 +15,15 @@ public class Signal implements Serializable {
 
     public static Signal fromAssets(final AssetManager assetManager, final String path) throws IOException {
         InputStream is = assetManager.open(path);
+        return signalFromInputStream(is);
+    }
+
+    public static Signal fromFile(final String filePath) throws IOException {
+        InputStream is = new FileInputStream(filePath);
+        return signalFromInputStream(is);
+    }
+
+    public static Signal signalFromInputStream(InputStream is) throws IOException {
         DataInputStream dis = new DataInputStream(new BufferedInputStream((is)));
 
         byte signature[] = new byte[4];

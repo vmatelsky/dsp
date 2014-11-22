@@ -40,5 +40,6 @@ dependencies {
     apt "org.androidannotations:androidannotations:3.0"
     compile "org.androidannotations:androidannotations-api:3.0"
     compile 'com.jjoe64:graphview:3.1.3'
+    compile project(':FileExplorer')
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }
