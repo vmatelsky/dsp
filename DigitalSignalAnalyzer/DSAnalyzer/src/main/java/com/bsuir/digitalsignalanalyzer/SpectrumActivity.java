@@ -86,7 +86,7 @@ public class SpectrumActivity extends Activity {
         if (resultCode == RESULT_OK) {
             List<Integer> periodicComponents = data.getIntegerArrayListExtra(ChoosePeriodicComponentActivity.PERIODIC_COMPONENTS_KEY);
             Toast.makeText(this, periodicComponents.toString(), Toast.LENGTH_LONG).show();
-            PeriodicSpectrumDrawerActivity_.intent(this)
+            PeriodicSpectrumActivity_.intent(this)
                     ._periodicComponents(periodicComponents)
                     ._signal(_signal)
                     ._signalFFT(_signalFFT)

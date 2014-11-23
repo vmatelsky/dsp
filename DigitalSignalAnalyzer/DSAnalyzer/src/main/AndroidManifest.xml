@@ -37,7 +37,7 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="com.bsuir.digitalsignalanalyzer.PeriodicSpectrumDrawerActivity_"
+            android:name="com.bsuir.digitalsignalanalyzer.PeriodicSpectrumActivity_"
             android:label="@string/app_name" >
         </activity>
     </application>

@@ -25,7 +25,7 @@ import java.util.List;
 
 
 @EActivity
-public class PeriodicSpectrumDrawerActivity extends Activity
+public class PeriodicSpectrumActivity extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     @Extra("Periodic component")
@@ -51,7 +51,7 @@ public class PeriodicSpectrumDrawerActivity extends Activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_periodic_spectrum_drawer);
+        setContentView(R.layout.activity_periodic_spectrum);
         mNavigationDrawerFragment = (NavigationDrawerFragment) getFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
 
@@ -99,7 +99,7 @@ public class PeriodicSpectrumDrawerActivity extends Activity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!mNavigationDrawerFragment.isDrawerOpen()) {
-            getMenuInflater().inflate(R.menu.periodic_spectrum_drawer, menu);
+            getMenuInflater().inflate(R.menu.menu_periodic_spectrum, menu);
             restoreActionBar();
             return true;
         }
