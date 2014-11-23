@@ -12,5 +12,11 @@
     <string name="done">Done</string>
     <string name="add_frequency">Add</string>
     <string name="convert_to_signals">To signals</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+    <string name="raw_spectrum">Raw spectrum</string>
+    <string name="periodic_spectrum">Periodic spectrum</string>
+    <string name="noise_spectrum">Noise spectrum</string>
 
 </resources>
