@@ -7,6 +7,7 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.bsuir.digitalsignalanalyzer.model.Signal;
+import com.bsuir.digitalsignalanalyzer.model.SignalFFT;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GraphViewSeries;
 import com.jjoe64.graphview.LineGraphView;
@@ -32,6 +33,8 @@ public class SpectrumActivity extends Activity {
     @Extra("signal")
     Signal _signal;
 
+    SignalFFT _signalFFT;
+
     @ViewById(R.id.chart_place)
     FrameLayout _chartPlace;
 
@@ -51,6 +54,8 @@ public class SpectrumActivity extends Activity {
         float[] fft = new float[_signal.getData().length * 2];
         System.arraycopy(_signal.getData(), 0, fft, 0, _signal.getData().length);
         fftDo.realForwardFull(fft);
+
+        _signalFFT = new SignalFFT(fft);
 
         GraphView.GraphViewData[] data = new GraphView.GraphViewData[fft.length];
         float deltaF = (float)_signal.getSpectralLinesCount() / (float)_signal.getDataSize();
@@ -81,6 +86,11 @@ public class SpectrumActivity extends Activity {
         if (resultCode == RESULT_OK) {
             List<Integer> periodicComponents = data.getIntegerArrayListExtra(ChoosePeriodicComponentActivity.PERIODIC_COMPONENTS_KEY);
             Toast.makeText(this, periodicComponents.toString(), Toast.LENGTH_LONG).show();
+            PeriodicSpectrumActivity_.intent(this)
+                    ._periodicComponents(periodicComponents)
+                    ._signal(_signal)
+                    ._signalFFT(_signalFFT)
+                    .start();
         }
     }
 }

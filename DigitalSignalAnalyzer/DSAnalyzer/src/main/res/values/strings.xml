@@ -11,5 +11,6 @@
     <string name="periodic_component">Periodic component</string>
     <string name="done">Done</string>
     <string name="add_frequency">Add</string>
+    <string name="convert_to_signals">To signals</string>
 
 </resources>
