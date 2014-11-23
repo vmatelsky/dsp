@@ -1,8 +1,10 @@
 package com.bsuir.digitalsignalanalyzer;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.bsuir.digitalsignalanalyzer.model.Signal;
 import com.jjoe64.graphview.GraphView;
@@ -12,12 +14,20 @@ import com.jjoe64.graphview.LineGraphView;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
+import org.androidannotations.annotations.OnActivityResult;
+import org.androidannotations.annotations.OptionsItem;
+import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
+
+import java.util.List;
 
 import edu.emory.mathcs.jtransforms.fft.FloatFFT_1D;
 
 @EActivity(R.layout.activity_spectrum)
+@OptionsMenu(R.menu.spectrum_activity_menu)
 public class SpectrumActivity extends Activity {
+
+    final static int SELECT_PERIODIC_COMPONENT_REQUEST_CODE = 100;
 
     @Extra("signal")
     Signal _signal;
@@ -59,5 +69,18 @@ public class SpectrumActivity extends Activity {
 
         _chartPlace.removeAllViews();
         _chartPlace.addView(graphView);
+    }
+
+    @OptionsItem(R.id.select_periodic_component)
+    public void selectPeriodicComponent() {
+        ChoosePeriodicComponentActivity_.intent(this).startForResult(SELECT_PERIODIC_COMPONENT_REQUEST_CODE);
+    }
+
+    @OnActivityResult(SELECT_PERIODIC_COMPONENT_REQUEST_CODE)
+    void onResult(int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            List<Integer> periodicComponents = data.getIntegerArrayListExtra(ChoosePeriodicComponentActivity.PERIODIC_COMPONENTS_KEY);
+            Toast.makeText(this, periodicComponents.toString(), Toast.LENGTH_LONG).show();
+        }
     }
 }

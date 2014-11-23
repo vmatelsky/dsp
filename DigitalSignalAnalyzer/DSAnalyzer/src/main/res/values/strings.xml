@@ -6,5 +6,10 @@
     <string name="action_settings">Settings</string>
     <string name="select_signal">Select signal</string>
     <string name="calculate_spectrum">Spectrum</string>
+    <string name="select_periodic_component">Periodic component (Hz)</string>
+    <string name="selected_periodic_components">Selected periodic components (Hz):</string>
+    <string name="periodic_component">Periodic component</string>
+    <string name="done">Done</string>
+    <string name="add_frequency">Add</string>
 
 </resources>
